@@ -1,40 +1,55 @@
 package web.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long user_id;
 
-    private String name;
+    private String user_name;
+
     private String password;
-    private String role;
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "APP_USER_ROLE",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id") })
+    private Set<UserRole> roles = new HashSet<UserRole>();
 
     public User() {
-        this.name = "";
+        this.user_name = "";
         this.password = "";
-        this.role = "user";
+        roles = new HashSet<UserRole>();
     }
 
-    public long getId() {
-        return id;
+    public long getUser_id() {
+        return user_id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
 
-    public String getName() {
-        return name;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public String getPassword() {
@@ -45,23 +60,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public User(String name, String password) {
-        this.name = name;
+        this.user_name = name;
         this.password = password;
-        this.role = "user";
+        this.roles = new HashSet<UserRole>();
     }
 
-    public User(String name, String password, String role) {
-        this.name = name;
-        this.password = password;
-        this.role = role;
-    }
+
 }

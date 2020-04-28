@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import web.model.User;
+import web.model.UserRole;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -52,7 +53,7 @@ public class WebConfig implements WebMvcConfigurer {
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 
         factoryBean.setHibernateProperties(props);
-        factoryBean.setAnnotatedClasses(User.class);
+        factoryBean.setAnnotatedClasses(User.class, UserRole.class);
 
         return factoryBean;
     }

@@ -1,6 +1,7 @@
 package web.dao;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import web.model.User;
@@ -22,10 +23,18 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User getUser(long id) {
-        TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery(
-                "from User where id = "+ id);
+    public Object getUser(long id) {
+        Query query=sessionFactory.getCurrentSession().createQuery(
+                "from User where user_id = "+ id);
         return query.getSingleResult();
+    }
+
+    @Override
+    public Object getUserByName(String name) {
+        Query query=sessionFactory.getCurrentSession().createQuery(
+            "from User where user_name = '"+ name + "';");
+        return query.getSingleResult();
+
     }
 
     @Override
@@ -40,7 +49,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void deleteUser(String id) throws SQLException {
-        User user = getUser(Long.parseLong(id));
+        Object user = getUser(Long.parseLong(id));
         sessionFactory.getCurrentSession().delete(user);
     }
 }

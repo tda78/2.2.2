@@ -11,6 +11,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="web.model.User" %>
 <%@ page import="web.service.UserServiceImpl" %>
+<%@ page import="java.util.Collection" %>
+<%@ page import="javax.management.relation.Role" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,23 +22,30 @@
 <h1 align="center">USERS</h1>
 <table border="1" width="500" align="center">
     <caption>
+        <th>id</th>
         <th>name</th>
         <th>password</th>
-        <th>role</th>
-
+        <th>roles</th>
     </caption>
     <c:forEach items="${users}" var="user">
         <tr>
-            <td>${user.name}</td>
+            <td>${user.user_id}</td>
+            <td>${user.user_name}</td>
             <td>${user.password}</td>
-            <td>${user.role}</td>
             <td>
-                <form method="post" action="/delete">
-                    <input type="hidden" name="userID" value=${user.id}>
+
+              <c:forEach items="${user.roles}" var="role">
+                <p>${role.role_name}</p>
+              </c:forEach>
+            </td>
+
+            <td>
+                <form method="post" action="/admin/delete">
+                    <input type="hidden" name="userID" value=${user.user_id}>
                     <input type="submit" value="delete">
                 </form>
-                <form method="get" action="/update">
-                    <input type="hidden" name="userID" value=${user.id}>
+                <form method="get" action="/admin/update">
+                    <input type="hidden" name="userID" value=${user.user_id}>
                     <input type="submit" value="update">
                 </form>
 
@@ -44,7 +53,7 @@
         </tr>
     </c:forEach>
 </table>
-<form method="get" action="new_user"  >
+<form method="get" action="/admin/new_user"  >
     <input align="center" type="submit" width="500" value="new user">
 </form>
 </body>
