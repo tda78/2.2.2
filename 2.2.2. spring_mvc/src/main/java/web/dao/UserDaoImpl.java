@@ -23,17 +23,17 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public Object getUser(long id) {
+    public User getUser(long id) {
         Query query=sessionFactory.getCurrentSession().createQuery(
                 "from User where user_id = "+ id);
-        return query.getSingleResult();
+        return (User)query.getSingleResult();
     }
 
     @Override
-    public Object getUserByName(String name) {
+    public User getUserByName(String name) {
         Query query=sessionFactory.getCurrentSession().createQuery(
             "from User where user_name = '"+ name + "';");
-        return query.getSingleResult();
+        return (User)query.getSingleResult();
 
     }
 

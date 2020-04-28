@@ -11,8 +11,8 @@
 <h2>id:        ${user.id}</h2>
 <h2>name:      ${user.name}></h2>
 <h2>password:  ${user.password}></h2>
-
-
-
+<c:forEach var="role" items="${user.roles}">
+ <h2> ${role.role_name}</h2>
+</c:forEach>
 </body>
 </html>

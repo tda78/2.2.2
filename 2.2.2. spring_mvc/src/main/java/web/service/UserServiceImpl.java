@@ -1,6 +1,9 @@
 package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.RoleDao;
@@ -12,7 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserDao userDao;
@@ -43,7 +46,6 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(String id) throws SQLException {
         userDao.deleteUser(id);
     }
-
     @Transactional
     @Override
     public void updateUser(User user) throws SQLException {
@@ -55,10 +57,16 @@ public class UserServiceImpl implements UserService {
     public List<UserRole> getAllRoles() {
         return roleDao.getAllRoles();
     }
+
     @Transactional
     @Override
     public UserRole getRoleByName(String name) {
-        return roleDao.getRoleBuyName(name);
+        return roleDao.getRoleByName(name);
     }
 
+    @Transactional
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return userDao.getUserByName(s);
+    }
 }

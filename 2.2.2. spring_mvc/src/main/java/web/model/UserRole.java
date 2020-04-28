@@ -1,10 +1,12 @@
 package web.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
-public class UserRole {
+public class UserRole implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,5 +35,10 @@ public class UserRole {
 
     public void setRole_name(String role_name) {
         this.role_name = role_name;
+    }
+
+    @Override
+    public String getAuthority() {
+        return this.role_name;
     }
 }
