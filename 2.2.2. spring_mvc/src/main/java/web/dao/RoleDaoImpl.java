@@ -23,7 +23,7 @@ public class RoleDaoImpl implements RoleDao{
     @Override
     public UserRole getRoleByName(String name) {
         Query query=sessionFactory.getCurrentSession().createQuery(
-                "from UserRole where role_name = '"+ name + "';");
+                "from UserRole where rolename = '"+ name + "';");
         return (UserRole)query.getSingleResult();
     }
 }

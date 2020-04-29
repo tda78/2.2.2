@@ -30,12 +30,12 @@
     <c:forEach items="${users}" var="user">
         <tr>
             <td>${user.user_id}</td>
-            <td>${user.user_name}</td>
+            <td>${user.username}</td>
             <td>${user.password}</td>
             <td>
 
               <c:forEach items="${user.roles}" var="role">
-                <p>${role.role_name}</p>
+                <p>${role.rolename}</p>
               </c:forEach>
             </td>
 

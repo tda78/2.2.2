@@ -1,12 +1,13 @@
 package web.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import web.model.User;
 import web.model.UserRole;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     List<User> getAllUsers();
 

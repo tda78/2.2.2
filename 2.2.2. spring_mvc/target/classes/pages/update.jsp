@@ -16,18 +16,18 @@
 <h2>${bdMethod}</h2>
 <c:set var="user" value="${user}"/>
 <form action="/admin/update" method="post">
-    <p><label>name<input type="text" name="name" value=${user.user_name}></label>
+    <p><label>name<input type="text" name="name" value=${user.username}></label>
     <p><input type="hidden" title="name" name="userID" value=${user.user_id}>
     <p><label>password<input type="text" title="password" name="password" value=${user.password}></label>
         <c:forEach var="role" items="${roles}">
-    <p><label><input type="checkbox" name="${role.role_name}"
-                     value="${role.role_name}"
+    <p><label><input type="checkbox" name="${role.rolename}"
+                     value="${role.rolename}"
             <c:forEach var="userRole" items="${user.roles}">
-                <c:if test="${userRole.role_name == role.role_name}">
+                <c:if test="${userRole.rolename == role.rolename}">
                     checked
                 </c:if>
             </c:forEach>
-    />${role.role_name} </label>
+    />${role.rolename} </label>
         </c:forEach>
     <p><input type="submit" value="submit">
 </form>

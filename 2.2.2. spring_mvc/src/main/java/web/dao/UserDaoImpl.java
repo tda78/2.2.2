@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao{
     @Override
     public User getUserByName(String name) {
         Query query=sessionFactory.getCurrentSession().createQuery(
-            "from User where user_name = '"+ name + "';");
+            "from User where username='"+ name + "'");
         return (User)query.getSingleResult();
 
     }

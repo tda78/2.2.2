@@ -14,10 +14,14 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/user")
-    public String userPage(Model model){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute(user);
+    @RequestMapping("/user/")
+    public String userPage(Model model) {
+
+        String string = (SecurityContextHolder.getContext().getAuthentication().
+                getPrincipal().toString());
+
+        User user = (User) userService.loadUserByUsername(string);
+        model.addAttribute("user", user);
         return "userInfo";
-   }
+    }
 }

@@ -56,7 +56,7 @@ public class AdminController {
         String id = request.getParameter("userID");
         User user = new User(name, password);
         for (UserRole role: userService.getAllRoles() ) {
-            if(!(request.getParameter(role.getRole_name())==null)){
+            if(!(request.getParameter(role.getRolename())==null)){
                 user.getRoles().add(role);
             }else {
                 user.getRoles().remove(role);

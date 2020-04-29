@@ -12,13 +12,13 @@ public class UserRole implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long role_id;
 
-    private String role_name;
+    private String rolename;
 
     public UserRole() {
     }
 
-    public UserRole(String role_name) {
-        this.role_name = role_name;
+    public UserRole(String rolename) {
+        this.rolename = rolename;
     }
 
     public long getRole_id() {
@@ -29,16 +29,20 @@ public class UserRole implements GrantedAuthority {
         this.role_id = role_id;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public String getRolename() {
+        return rolename;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setRolename(String role_name) {
+        this.rolename = role_name;
     }
 
     @Override
     public String getAuthority() {
-        return this.role_name;
+        return getRolename();
+    }
+
+    public String toString(){
+        return getRolename();
     }
 }

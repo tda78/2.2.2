@@ -8,11 +8,12 @@
 <body>
 
 <c:set var="user" value="${user}"/>
-<h2>id:        ${user.id}</h2>
-<h2>name:      ${user.name}></h2>
+<h2>id:        ${user.user_id}</h2>
+<h2>name:      ${user.username}></h2>
 <h2>password:  ${user.password}></h2>
+<h1>roles:</h1>
 <c:forEach var="role" items="${user.roles}">
- <h2> ${role.role_name}</h2>
+ <h2> ${role.rolename}</h2>
 </c:forEach>
 </body>
 </html>

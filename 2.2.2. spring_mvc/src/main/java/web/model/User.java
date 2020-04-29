@@ -16,9 +16,21 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long user_id;
 
-    private String user_name;
+    private String username;
 
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "APP_USER_ROLE",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id") })
+    private Set<UserRole> roles;
+
+    public User() {
+        this.username = "";
+        this.password = "";
+        roles = new HashSet<UserRole>();
+    }
 
     public Set<UserRole> getRoles() {
         return roles;
@@ -26,18 +38,6 @@ public class User implements UserDetails {
 
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
-    }
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "APP_USER_ROLE",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "role_id") })
-    private Set<UserRole> roles = new HashSet<UserRole>();
-
-    public User() {
-        this.user_name = "";
-        this.password = "";
-        roles = new HashSet<UserRole>();
     }
 
     public long getUser_id() {
@@ -48,17 +48,14 @@ public class User implements UserDetails {
         this.user_id = user_id;
     }
 
-    public String getUser_name() {
-        return user_name;
-    }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUsername(String user_name) {
+        this.username = user_name;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return getRoles();
     }
 
     public String getPassword() {
@@ -67,7 +64,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user_name;
+        return username;
     }
 
     @Override
@@ -95,8 +92,13 @@ public class User implements UserDetails {
     }
 
     public User(String name, String password) {
-        this.user_name = name;
+        this.username = name;
         this.password = password;
         this.roles = new HashSet<UserRole>();
+    }
+
+    @Override
+    public String toString() {
+        return username;
     }
 }

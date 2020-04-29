@@ -5,7 +5,7 @@ import web.model.User;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface UserDao {
+public interface UserDao{
     List<User> getAllUsers();
 
     User getUser(long id);
