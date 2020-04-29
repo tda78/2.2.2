@@ -1,10 +1,12 @@
 package web.dao;
 
+import org.springframework.stereotype.Repository;
 import web.model.UserRole;
 
 import java.util.List;
 
-public interface RoleDao {
+@Repository
+public interface RoleDao{
     List<UserRole> getAllRoles();
     UserRole getRoleByName(String name);
 

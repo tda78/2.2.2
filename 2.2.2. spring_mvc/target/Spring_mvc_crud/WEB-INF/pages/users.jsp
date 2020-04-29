@@ -56,5 +56,6 @@
 <form method="get" action="/admin/new_user"  >
     <input align="center" type="submit" width="500" value="new user">
 </form>
+<jsp:include page="logout.jsp"/>
 </body>
 </html>

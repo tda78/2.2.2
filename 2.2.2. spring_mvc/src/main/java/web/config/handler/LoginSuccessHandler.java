@@ -21,15 +21,17 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                                         Authentication authentication) throws IOException, ServletException {
 
 
-
+        boolean selected = false;
         for (RolesEnum role : RolesEnum.values()) {
             for (GrantedAuthority g : authentication.getAuthorities()) {
                 String userRole = g.getAuthority();
                 if (userRole.equals(role.name())) {
                     String direction = "/"+role.name().toLowerCase()+"/";
                     httpServletResponse.sendRedirect(direction);
+                    selected = true;
                 }
             }
+            if (selected) break;;
         }
     }
 }
